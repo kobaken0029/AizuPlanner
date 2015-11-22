@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.kobaken0029.aizuplanner.CalendarActivity">
+    tools:context=".view.activity.CalendarActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

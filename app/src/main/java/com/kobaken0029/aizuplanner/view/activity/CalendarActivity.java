@@ -1,4 +1,4 @@
-package com.kobaken0029.aizuplanner;
+package com.kobaken0029.aizuplanner.view.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.kobaken0029.aizuplanner.R;
 
 public class CalendarActivity extends AppCompatActivity {
 
