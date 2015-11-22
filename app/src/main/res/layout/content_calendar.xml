@@ -8,10 +8,12 @@
     tools:context=".view.activity.CalendarActivity"
     tools:showIn="@layout/activity_calendar">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:name="com.kobaken0029.aizuplanner.view.fragment.EventListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/fragment_event" />
 
 </android.support.v4.widget.NestedScrollView>
