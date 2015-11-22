@@ -97,4 +97,7 @@
     <string name="navigation_search_events">イベント検索</string>
 
     <string name="search_hint">イベント名を入力してください</string>
+
+    <string name="fragment_google_map_button">Google Mapへ</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
