@@ -16,12 +16,17 @@ import butterknife.ButterKnife;
 
 public class MyEventRecyclerViewAdapter extends RecyclerView.Adapter<MyEventRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private List<DummyItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
     public MyEventRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
+    }
+
+    public void setValues(List<DummyItem> mValues) {
+        this.mValues = mValues;
+        notifyDataSetChanged();
     }
 
     @Override

@@ -15,6 +15,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class EventDetailFragment extends Fragment {
+    public static final String TAG = EventDetailFragment.class.getSimpleName();
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
