@@ -57,7 +57,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab)
     void onClickFab() {
-
+        EventActivity.start(CalendarActivity.this, mCalendarView.getCurrentDate());
     }
 
     public static void start(Context context) {

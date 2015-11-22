@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kobaken0029.aizuplanner.R;
-import com.kobaken0029.aizuplanner.view.fragment.EventListFragment.OnListFragmentInteractionListener;
 import com.kobaken0029.aizuplanner.view.adapter.dummy.DummyContent.DummyItem;
+import com.kobaken0029.aizuplanner.view.fragment.EventListFragment.OnListFragmentInteractionListener;
 
 import java.util.List;
 
