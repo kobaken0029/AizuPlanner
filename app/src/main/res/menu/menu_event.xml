@@ -5,6 +5,6 @@
         android:id="@+id/search_events"
         android:icon="@android:drawable/ic_menu_search"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/no_string"
         app:showAsAction="ifRoom" />
 </menu>
