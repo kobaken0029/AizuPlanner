@@ -6,12 +6,12 @@
         android:id="@+id/set_today"
         android:orderInCategory="100"
         android:icon="@android:drawable/ic_menu_today"
-        android:title="@string/action_settings"
+        android:title="@string/no_string"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/search_events"
         android:orderInCategory="100"
         android:icon="@android:drawable/ic_menu_search"
-        android:title="@string/action_settings"
+        android:title="@string/no_string"
         app:showAsAction="ifRoom" />
 </menu>

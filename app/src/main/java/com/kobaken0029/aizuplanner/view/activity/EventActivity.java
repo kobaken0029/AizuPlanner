@@ -19,6 +19,8 @@ public class EventActivity extends BaseActivity
         implements EventDetailFragment.OnFragmentInteractionListener, EventListFragment.OnListFragmentInteractionListener {
     public static final String TAG = EventActivity.class.getSimpleName();
 
+    private String referer;
+
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
 
@@ -54,7 +56,15 @@ public class EventActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
         ButterKnife.bind(this);
-        mToolbarHelper.init(this, mToolbar, R.string.fragment_google_map_button, true);
+        mToolbarHelper.init(this, mToolbar, R.string.fragment_index_events, true);
+
+        if (getIntent().getStringExtra("id") != null) {
+            String id = getIntent().getStringExtra("id");
+            String content = getIntent().getStringExtra("content");
+            referer = getIntent().getStringExtra("referer");
+            addFragment(R.id.container, EventDetailFragment.newInstance(id, content), EventDetailFragment.TAG);
+            return;
+        }
 
         if (savedInstanceState == null) {
             addFragment(R.id.container, EventListFragment.newInstance(1), EventListFragment.TAG);
@@ -63,7 +73,8 @@ public class EventActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().findFragmentByTag(EventDetailFragment.TAG) != null) {
+        if (getSupportFragmentManager().findFragmentByTag(EventDetailFragment.TAG) != null
+                && !referer.equals(CalendarActivity.TAG)) {
             replaceFragment(R.id.container, EventListFragment.newInstance(1), EventListFragment.TAG);
             return;
         }

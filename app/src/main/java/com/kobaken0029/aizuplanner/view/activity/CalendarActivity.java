@@ -114,7 +114,7 @@ public class CalendarActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         ButterKnife.bind(this);
-        mToolbarHelper.init(this, mToolbar, R.string.app_name, false);
+        mToolbarHelper.init(this, mToolbar, R.string.no_string, false);
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
