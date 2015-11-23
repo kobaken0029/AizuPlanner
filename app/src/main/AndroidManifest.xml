@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.EventActivity" />
-        <activity android:name=".view.activity.SearchActivity"></activity>
+        <activity android:name=".view.activity.SearchActivity" />
     </application>
 
 </manifest>

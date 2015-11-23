@@ -35,4 +35,5 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'io.reactivex:rxandroid:1.0.0'
+    provided 'org.projectlombok:lombok:1.12.6'
 }
