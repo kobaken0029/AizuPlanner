@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +17,7 @@ import com.kobaken0029.aizuplanner.view.fragment.EventListFragment;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class EventActivity extends AppCompatActivity
+public class EventActivity extends BaseActivity
         implements EventDetailFragment.OnFragmentInteractionListener, EventListFragment.OnListFragmentInteractionListener {
     public static final String TAG = EventActivity.class.getSimpleName();
 
@@ -32,10 +30,7 @@ public class EventActivity extends AppCompatActivity
 
     @Override
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, EventDetailFragment.newInstance(item.id, item.content), EventDetailFragment.TAG)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .commit();
+        replaceFragment(R.id.container, EventDetailFragment.newInstance(item.id, item.content), EventDetailFragment.TAG);
     }
 
     public static void start(Context context) {
@@ -67,26 +62,14 @@ public class EventActivity extends AppCompatActivity
         getSupportActionBar().setHomeButtonEnabled(true);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, EventListFragment.newInstance(1), EventListFragment.TAG)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .commit();
+            addFragment(R.id.container, EventListFragment.newInstance(1), EventListFragment.TAG);
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        ButterKnife.unbind(this);
-        super.onDestroy();
     }
 
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().findFragmentByTag(EventDetailFragment.TAG) != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, EventListFragment.newInstance(1), EventListFragment.TAG)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                    .commit();
+            replaceFragment(R.id.container, EventListFragment.newInstance(1), EventListFragment.TAG);
             return;
         }
         super.onBackPressed();

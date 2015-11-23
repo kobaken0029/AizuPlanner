@@ -31,7 +31,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CalendarActivity extends AppCompatActivity {
+public class CalendarActivity extends BaseActivity {
     public static final String TAG = CalendarActivity.class.getSimpleName();
 
     private ActionBarDrawerToggle mDrawerToggle;
@@ -131,12 +131,6 @@ public class CalendarActivity extends AppCompatActivity {
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mNavigationView.setNavigationItemSelectedListener(mNavigationSelectedListener);
-    }
-
-    @Override
-    protected void onDestroy() {
-        ButterKnife.unbind(this);
-        super.onDestroy();
     }
 
     @Override

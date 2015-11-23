@@ -15,7 +15,7 @@ import com.kobaken0029.aizuplanner.view.adapter.MyEventRecyclerViewAdapter;
 import com.kobaken0029.aizuplanner.view.adapter.dummy.DummyContent;
 import com.kobaken0029.aizuplanner.view.adapter.dummy.DummyContent.DummyItem;
 
-public class EventListFragment extends Fragment {
+public class EventListFragment extends BaseFragment {
     public static final String TAG = EventListFragment.class.getSimpleName();
 
     private static final String ARG_COLUMN_COUNT = "column-count";
