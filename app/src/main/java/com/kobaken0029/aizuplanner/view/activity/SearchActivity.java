@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -23,7 +22,7 @@ import com.kobaken0029.aizuplanner.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends BaseActivity {
     public static final String TAG = SearchActivity.class.getSimpleName();
 
     @Bind(R.id.toolbar)
@@ -80,12 +79,6 @@ public class SearchActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         mEditText.setOnKeyListener(mKeyListener);
-    }
-
-    @Override
-    protected void onDestroy() {
-        ButterKnife.unbind(this);
-        super.onDestroy();
     }
 
     @Override

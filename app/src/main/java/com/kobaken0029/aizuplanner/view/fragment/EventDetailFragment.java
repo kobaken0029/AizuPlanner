@@ -14,7 +14,7 @@ import com.kobaken0029.aizuplanner.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class EventDetailFragment extends Fragment {
+public class EventDetailFragment extends BaseFragment {
     public static final String TAG = EventDetailFragment.class.getSimpleName();
 
     private static final String ARG_PARAM1 = "param1";
@@ -77,7 +77,6 @@ public class EventDetailFragment extends Fragment {
 
     @Override
     public void onDetach() {
-        ButterKnife.unbind(this);
         super.onDetach();
         mListener = null;
     }
