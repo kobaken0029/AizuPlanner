@@ -11,14 +11,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kobaken0029.aizuplanner.R;
+import com.kobaken0029.aizuplanner.model.Event;
 import com.kobaken0029.aizuplanner.view.adapter.MyEventRecyclerViewAdapter;
 import com.kobaken0029.aizuplanner.view.adapter.dummy.DummyContent;
 import com.kobaken0029.aizuplanner.view.adapter.dummy.DummyContent.DummyItem;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class EventListFragment extends BaseFragment {
     public static final String TAG = EventListFragment.class.getSimpleName();
 
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private static final String ARG_TITLES = "titles";
+    private static final String ARG_PLACES = "places";
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
@@ -26,6 +33,15 @@ public class EventListFragment extends BaseFragment {
         EventListFragment fragment = new EventListFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static EventListFragment newInstance(ArrayList<String> titles, ArrayList<String> places) {
+        EventListFragment fragment = new EventListFragment();
+        Bundle args = new Bundle();
+        args.putStringArrayList(ARG_TITLES, titles);
+        args.putStringArrayList(ARG_PLACES, places);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,7 +68,22 @@ public class EventListFragment extends BaseFragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyEventRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            MyEventRecyclerViewAdapter adapter;
+            if (getArguments() != null && getArguments().getStringArrayList(ARG_TITLES) != null) {
+                List<String> titles = getArguments().getStringArrayList(ARG_TITLES);
+                List<String> places = getArguments().getStringArrayList(ARG_PLACES);
+                List<Event> events = new ArrayList<>();
+                for (int i = 0; i < titles.size(); i++) {
+                    Event e = new Event();
+                    e.setTitle(titles.get(i));
+                    e.setPlace(places.get(i));
+                    events.add(e);
+                }
+                adapter = new MyEventRecyclerViewAdapter(events, mListener);
+            } else {
+                adapter = new MyEventRecyclerViewAdapter(Arrays.asList(new Event(), new Event()), mListener);
+            }
+            recyclerView.setAdapter(adapter);
         }
         return view;
     }
@@ -76,6 +107,6 @@ public class EventListFragment extends BaseFragment {
     }
 
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Event item);
     }
 }

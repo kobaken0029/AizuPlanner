@@ -9,6 +9,7 @@ import com.kobaken0029.aizuplanner.AizuPlannerApplication;
 import com.kobaken0029.aizuplanner.di.component.ApplicationComponent;
 import com.kobaken0029.aizuplanner.di.module.ActivityModule;
 import com.kobaken0029.aizuplanner.helper.ToolbarHelper;
+import com.kobaken0029.aizuplanner.helper.WebApiHelper;
 
 import javax.inject.Inject;
 
@@ -17,6 +18,8 @@ import butterknife.ButterKnife;
 public class BaseActivity extends AppCompatActivity {
     @Inject
     ToolbarHelper mToolbarHelper;
+    @Inject
+    WebApiHelper mWebApiHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

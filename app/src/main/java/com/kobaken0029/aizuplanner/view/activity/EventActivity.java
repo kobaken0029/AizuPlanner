@@ -8,9 +8,11 @@ import android.os.Parcelable;
 import android.support.v7.widget.Toolbar;
 
 import com.kobaken0029.aizuplanner.R;
-import com.kobaken0029.aizuplanner.view.adapter.dummy.DummyContent;
+import com.kobaken0029.aizuplanner.model.Event;
 import com.kobaken0029.aizuplanner.view.fragment.EventDetailFragment;
 import com.kobaken0029.aizuplanner.view.fragment.EventListFragment;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,12 +31,20 @@ public class EventActivity extends BaseActivity
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
-        replaceFragment(R.id.container, EventDetailFragment.newInstance(item.id, item.content), EventDetailFragment.TAG);
+    public void onListFragmentInteraction(Event item) {
+        replaceFragment(R.id.container,
+                EventDetailFragment.newInstance(item.getTitle(), item.getPlace()), EventDetailFragment.TAG);
     }
 
     public static void start(Context context) {
         context.startActivity(new Intent(context, EventActivity.class));
+    }
+
+    public static void start(Context context, ArrayList<String> titles, ArrayList<String> places) {
+        Intent intent = new Intent(context, EventActivity.class);
+        intent.putStringArrayListExtra("titles", titles);
+        intent.putStringArrayListExtra("places", places);
+        context.startActivity(intent);
     }
 
     public static void start(Context context, Parcelable date) {
@@ -43,10 +53,10 @@ public class EventActivity extends BaseActivity
         context.startActivity(intent);
     }
 
-    public static void start(Context context, DummyContent.DummyItem item) {
+    public static void start(Context context, Event item) {
         Intent intent = new Intent(context, EventActivity.class);
-        intent.putExtra("id", item.id);
-        intent.putExtra("content", item.content);
+        intent.putExtra("id", item.getTitle());
+        intent.putExtra("content", item.getPlace());
         intent.putExtra("referer", CalendarActivity.TAG);
         context.startActivity(intent);
     }
@@ -64,6 +74,10 @@ public class EventActivity extends BaseActivity
             referer = getIntent().getStringExtra("referer");
             addFragment(R.id.container, EventDetailFragment.newInstance(id, content), EventDetailFragment.TAG);
             return;
+        } else if (getIntent().getSerializableExtra("titles") != null) {
+            ArrayList<String> titles = getIntent().getStringArrayListExtra("titles");
+            ArrayList<String> place = getIntent().getStringArrayListExtra("places");
+            addFragment(R.id.container, EventListFragment.newInstance(titles, place), EventListFragment.TAG);
         }
 
         if (savedInstanceState == null) {
