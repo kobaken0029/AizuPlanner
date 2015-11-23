@@ -9,11 +9,9 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -116,9 +114,12 @@ public class CalendarActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         ButterKnife.bind(this);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        mToolbarHelper.init(this, mToolbar, R.string.app_name, false);
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name);
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mNavigationView.setNavigationItemSelectedListener(mNavigationSelectedListener);
 
         mCalendarView.setDateSelected(CalendarDay.today(), true);
         mCalendarView.setOnDateChangedListener(mDateSelectedListener);
@@ -126,11 +127,6 @@ public class CalendarActivity extends BaseActivity {
         mRecyclerViewAdapter = new MyEventRecyclerViewAdapter(DummyContent.ITEMS, mListInteractionListener);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
-
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name);
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mNavigationView.setNavigationItemSelectedListener(mNavigationSelectedListener);
     }
 
     @Override
@@ -145,30 +141,14 @@ public class CalendarActivity extends BaseActivity {
         mDrawerToggle.syncState();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_calendar, menu);
-        return true;
+    public void openDrawer() {
+        mDrawerLayout.openDrawer(GravityCompat.START);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                break;
-            case R.id.search_events:
-                SearchActivity.start(this);
-                return true;
-            case R.id.set_today:
-                mCalendarView.clearSelection();
-                CalendarDay now = CalendarDay.today();
-                mCalendarView.setDateSelected(now, true);
-                mCalendarView.setCurrentDate(now);
-                break;
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
+    public void setToday() {
+        mCalendarView.clearSelection();
+        CalendarDay now = CalendarDay.today();
+        mCalendarView.setDateSelected(now, true);
+        mCalendarView.setCurrentDate(now);
     }
 }

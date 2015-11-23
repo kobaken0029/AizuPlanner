@@ -6,8 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.kobaken0029.aizuplanner.R;
 import com.kobaken0029.aizuplanner.view.adapter.dummy.DummyContent;
@@ -56,10 +54,7 @@ public class EventActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
         ButterKnife.bind(this);
-
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        mToolbarHelper.init(this, mToolbar, R.string.fragment_google_map_button, true);
 
         if (savedInstanceState == null) {
             addFragment(R.id.container, EventListFragment.newInstance(1), EventListFragment.TAG);
@@ -73,26 +68,5 @@ public class EventActivity extends BaseActivity
             return;
         }
         super.onBackPressed();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_event, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            case R.id.search_events:
-                SearchActivity.start(this);
-                return true;
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

@@ -8,10 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import com.kobaken0029.aizuplanner.AizuPlannerApplication;
 import com.kobaken0029.aizuplanner.di.component.ApplicationComponent;
 import com.kobaken0029.aizuplanner.di.module.ActivityModule;
+import com.kobaken0029.aizuplanner.helper.ToolbarHelper;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
 public class BaseActivity extends AppCompatActivity {
+    @Inject
+    ToolbarHelper mToolbarHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
