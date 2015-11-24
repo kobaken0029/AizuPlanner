@@ -29,7 +29,6 @@ public class SearchActivity extends BaseActivity {
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
-
     @Bind(R.id.edit_search)
     EditText mEditText;
 
@@ -47,7 +46,6 @@ public class SearchActivity extends BaseActivity {
                     && keyCode == KeyEvent.KEYCODE_ENTER) {
                 ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
                         .hideSoftInputFromWindow(mEditText.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
-
 
                 mWebApiHelper.request(new Observer<ResponseObject>() {
                     @Override
@@ -88,7 +86,7 @@ public class SearchActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
-        mToolbarHelper.init(this, mToolbar, R.string.app_name, true);
+        mToolbarHelper.init(this, mToolbar, R.string.app_name, null);
         mEditText.setOnKeyListener(mKeyListener);
     }
 

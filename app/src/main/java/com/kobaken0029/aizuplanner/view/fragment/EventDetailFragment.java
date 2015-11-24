@@ -1,15 +1,16 @@
 package com.kobaken0029.aizuplanner.view.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kobaken0029.aizuplanner.R;
+import com.kobaken0029.aizuplanner.view.OnFragmentInteractionListener;
+import com.kobaken0029.aizuplanner.view.controller.impl.EventControllerImpl;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -17,12 +18,11 @@ import butterknife.ButterKnife;
 public class EventDetailFragment extends BaseFragment {
     public static final String TAG = EventDetailFragment.class.getSimpleName();
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_EVENT_ID = "event_id";
+    private static final String ARG_CONTENT_TEXT = "content_text";
 
-    private String mParam1;
-    private String mParam2;
-
+    private String mEventId;
+    private String mContentText;
     private OnFragmentInteractionListener mListener;
 
     @Bind(R.id.id)
@@ -30,11 +30,11 @@ public class EventDetailFragment extends BaseFragment {
     @Bind(R.id.content)
     TextView mContentView;
 
-    public static EventDetailFragment newInstance(String param1, String param2) {
+    public static EventDetailFragment newInstance(String eventId, String contentText) {
         EventDetailFragment fragment = new EventDetailFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_EVENT_ID, eventId);
+        args.putString(ARG_CONTENT_TEXT, contentText);
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,8 +43,8 @@ public class EventDetailFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mEventId = getArguments().getString(ARG_EVENT_ID);
+            mContentText = getArguments().getString(ARG_CONTENT_TEXT);
         }
     }
 
@@ -53,35 +53,24 @@ public class EventDetailFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_detail, container, false);
         ButterKnife.bind(this, view);
-        mIdView.setText(mParam1);
-        mContentView.setText(mParam2);
+        mIdView.setText(mEventId);
+        mContentView.setText(mContentText);
+
+        mEventController.init(getContext(), null);
+        ButterKnife.bind(mEventController, view);
         return view;
     }
 
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed() {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+            mListener.onFragmentInteraction();
         }
     }
 
     @Override
     public void onDetach() {
-        super.onDetach();
+        ButterKnife.unbind(mEventController);
         mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+        super.onDetach();
     }
 }

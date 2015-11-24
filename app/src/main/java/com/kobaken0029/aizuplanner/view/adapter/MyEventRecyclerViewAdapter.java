@@ -8,25 +8,27 @@ import android.widget.TextView;
 
 import com.kobaken0029.aizuplanner.R;
 import com.kobaken0029.aizuplanner.model.Event;
-import com.kobaken0029.aizuplanner.view.fragment.EventListFragment.OnListFragmentInteractionListener;
+import com.kobaken0029.aizuplanner.view.OnListFragmentInteractionListener;
 
 import java.util.List;
 
 import butterknife.ButterKnife;
 
 public class MyEventRecyclerViewAdapter extends RecyclerView.Adapter<MyEventRecyclerViewAdapter.ViewHolder> {
-
     private List<Event> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private OnListFragmentInteractionListener mListener;
 
-    public MyEventRecyclerViewAdapter(List<Event> items, OnListFragmentInteractionListener listener) {
+    public MyEventRecyclerViewAdapter(List<Event> items) {
         mValues = items;
-        mListener = listener;
     }
 
-    public void setValues(List<Event> mValues) {
-        this.mValues = mValues;
+    public void setValues(List<Event> values) {
+        mValues = values;
         notifyDataSetChanged();
+    }
+
+    public void setOnListFragmentInteractionListener(OnListFragmentInteractionListener listener) {
+        mListener = listener;
     }
 
     @Override

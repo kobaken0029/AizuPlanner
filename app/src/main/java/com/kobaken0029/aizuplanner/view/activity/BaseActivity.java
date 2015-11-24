@@ -10,6 +10,9 @@ import com.kobaken0029.aizuplanner.di.component.ApplicationComponent;
 import com.kobaken0029.aizuplanner.di.module.ActivityModule;
 import com.kobaken0029.aizuplanner.helper.ToolbarHelper;
 import com.kobaken0029.aizuplanner.helper.WebApiHelper;
+import com.kobaken0029.aizuplanner.view.controller.CalendarController;
+import com.kobaken0029.aizuplanner.view.controller.EventController;
+import com.kobaken0029.aizuplanner.view.controller.NavigationController;
 
 import javax.inject.Inject;
 
@@ -20,6 +23,12 @@ public class BaseActivity extends AppCompatActivity {
     ToolbarHelper mToolbarHelper;
     @Inject
     WebApiHelper mWebApiHelper;
+    @Inject
+    CalendarController mCalendarController;
+    @Inject
+    NavigationController mNavigationController;
+    @Inject
+    EventController mEventController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
