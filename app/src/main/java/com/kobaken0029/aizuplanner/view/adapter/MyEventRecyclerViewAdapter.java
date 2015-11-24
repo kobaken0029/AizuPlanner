@@ -7,22 +7,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kobaken0029.aizuplanner.R;
-import com.kobaken0029.aizuplanner.model.Event;
 import com.kobaken0029.aizuplanner.view.OnListFragmentInteractionListener;
+import com.kobaken0029.aizuplanner.view.adapter.dummy.DummyContent;
 
 import java.util.List;
 
 import butterknife.ButterKnife;
 
 public class MyEventRecyclerViewAdapter extends RecyclerView.Adapter<MyEventRecyclerViewAdapter.ViewHolder> {
-    private List<Event> mValues;
+    private List<DummyContent.DummyItem> mValues;
     private OnListFragmentInteractionListener mListener;
 
-    public MyEventRecyclerViewAdapter(List<Event> items) {
+    public MyEventRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
         mValues = items;
     }
 
-    public void setValues(List<Event> values) {
+    public void setValues(List<DummyContent.DummyItem> values) {
         mValues = values;
         notifyDataSetChanged();
     }
@@ -40,8 +40,8 @@ public class MyEventRecyclerViewAdapter extends RecyclerView.Adapter<MyEventRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getTitle());
-        holder.mContentView.setText(mValues.get(position).getPlace());
+        holder.mIdView.setText(mValues.get(position).id);
+        holder.mContentView.setText(mValues.get(position).content);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +62,7 @@ public class MyEventRecyclerViewAdapter extends RecyclerView.Adapter<MyEventRecy
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public Event mItem;
+        public DummyContent.DummyItem mItem;
 
         public ViewHolder(View view) {
             super(view);

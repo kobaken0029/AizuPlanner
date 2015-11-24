@@ -6,6 +6,7 @@ import com.kobaken0029.aizuplanner.view.adapter.MyEventRecyclerViewAdapter;
 
 public interface CalendarController {
     void init(Context context, MyEventRecyclerViewAdapter adapter);
+    void onCreate();
     void onStart();
     void setToday();
 }

@@ -10,6 +10,7 @@ import com.kobaken0029.aizuplanner.model.Event;
 import com.kobaken0029.aizuplanner.view.OnListFragmentInteractionListener;
 import com.kobaken0029.aizuplanner.view.activity.EventActivity;
 import com.kobaken0029.aizuplanner.view.adapter.MyEventRecyclerViewAdapter;
+import com.kobaken0029.aizuplanner.view.adapter.dummy.DummyContent;
 import com.kobaken0029.aizuplanner.view.controller.EventController;
 
 import butterknife.Bind;
@@ -43,7 +44,7 @@ public class EventControllerImpl implements EventController {
     private OnListFragmentInteractionListener mListInteractionListener =
             new OnListFragmentInteractionListener() {
                 @Override
-                public void onListFragmentInteraction(Event item) {
+                public void onListFragmentInteraction(DummyContent.DummyItem item) {
                     EventActivity.start(mContext, item);
                 }
             };

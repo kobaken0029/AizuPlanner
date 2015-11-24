@@ -13,11 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.kobaken0029.aizuplanner.R;
-import com.kobaken0029.aizuplanner.model.Event;
 import com.kobaken0029.aizuplanner.view.adapter.MyEventRecyclerViewAdapter;
+import com.kobaken0029.aizuplanner.view.adapter.dummy.DummyContent;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -80,7 +82,8 @@ public class CalendarActivity extends BaseActivity {
         mDrawerToggle.setDrawerIndicatorEnabled(true);
 
         // RecycleViewのAdapterを作成
-        MyEventRecyclerViewAdapter eventRecyclerViewAdapter = new MyEventRecyclerViewAdapter(new ArrayList<Event>());
+        List<DummyContent.DummyItem> dummyItems = Arrays.asList(DummyContent.ITEM_MAP.get(CalendarDay.today().getDay()));
+        MyEventRecyclerViewAdapter eventRecyclerViewAdapter = new MyEventRecyclerViewAdapter(dummyItems);
 
         // NavigationController作成
         mNavigationController.init(this, mDrawerToggle);
@@ -93,6 +96,8 @@ public class CalendarActivity extends BaseActivity {
         // CalendarController作成
         mCalendarController.init(getApplicationContext(), eventRecyclerViewAdapter);
         ButterKnife.bind(mCalendarController, this);
+
+        mCalendarController.onCreate();
     }
 
     @Override

@@ -6,15 +6,15 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.kobaken0029.aizuplanner.R;
-import com.kobaken0029.aizuplanner.model.Event;
 import com.kobaken0029.aizuplanner.view.activity.EventActivity;
 import com.kobaken0029.aizuplanner.view.adapter.MyEventRecyclerViewAdapter;
+import com.kobaken0029.aizuplanner.view.adapter.dummy.DummyContent;
 import com.kobaken0029.aizuplanner.view.controller.CalendarController;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -33,8 +33,11 @@ public class CalendarControllerImpl implements CalendarController {
         mAdapter = adapter;
     }
 
-    public void onStart() {
+    public void onCreate() {
         mCalendarView.setDateSelected(CalendarDay.today(), true);
+    }
+
+    public void onStart() {
         mCalendarView.setOnDateChangedListener(mDateSelectedListener);
     }
 
@@ -48,16 +51,20 @@ public class CalendarControllerImpl implements CalendarController {
                 @Override
                 public void onDateSelected(
                         @NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                    mCalendarView.setCurrentDate(date);
-                    mAdapter.setValues(new ArrayList<Event>());
+                    setDay(date);
                 }
             };
 
     @MainThread
     public void setToday() {
+        setDay(CalendarDay.today());
+    }
+
+    @MainThread
+    private void setDay(CalendarDay day) {
         mCalendarView.clearSelection();
-        CalendarDay now = CalendarDay.today();
-        mCalendarView.setDateSelected(now, true);
-        mCalendarView.setCurrentDate(now);
+        mCalendarView.setDateSelected(day, true);
+        mCalendarView.setCurrentDate(day);
+        mAdapter.setValues(Arrays.asList(DummyContent.ITEM_MAP.get(day.getDay())));
     }
 }
