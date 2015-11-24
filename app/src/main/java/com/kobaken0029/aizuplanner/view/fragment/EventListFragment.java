@@ -7,14 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kobaken0029.aizuplanner.R;
-import com.kobaken0029.aizuplanner.model.Event;
 import com.kobaken0029.aizuplanner.view.adapter.MyEventRecyclerViewAdapter;
-import com.kobaken0029.aizuplanner.view.controller.impl.EventControllerImpl;
+import com.kobaken0029.aizuplanner.view.adapter.dummy.DummyContent;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
@@ -44,20 +40,7 @@ public class EventListFragment extends BaseFragment {
 
         if (view instanceof RecyclerView) {
             MyEventRecyclerViewAdapter adapter;
-            if (getArguments() != null && getArguments().getStringArrayList(ARG_TITLES) != null) {
-                List<String> titles = getArguments().getStringArrayList(ARG_TITLES);
-                List<String> places = getArguments().getStringArrayList(ARG_PLACES);
-                List<Event> events = new ArrayList<>();
-                for (int i = 0; i < titles.size(); i++) {
-                    Event e = new Event();
-                    e.setTitle(titles.get(i));
-                    e.setPlace(places.get(i));
-                    events.add(e);
-                }
-                adapter = new MyEventRecyclerViewAdapter(events);
-            } else {
-                adapter = new MyEventRecyclerViewAdapter(new ArrayList<Event>());
-            }
+            adapter = new MyEventRecyclerViewAdapter(DummyContent.ITEMS);
             mEventController.init(getContext(), adapter);
             ButterKnife.bind(mEventController, view);
         }

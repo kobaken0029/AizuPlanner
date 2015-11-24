@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.kobaken0029.aizuplanner.R;
 import com.kobaken0029.aizuplanner.model.Event;
+import com.kobaken0029.aizuplanner.view.adapter.dummy.DummyContent;
 import com.kobaken0029.aizuplanner.view.fragment.EventDetailFragment;
 import com.kobaken0029.aizuplanner.view.fragment.EventListFragment;
 
@@ -59,10 +60,10 @@ public class EventActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    public static void start(Context context, Event item) {
+    public static void start(Context context, DummyContent.DummyItem item) {
         Intent intent = new Intent(context, EventActivity.class);
-        intent.putExtra("id", item.getTitle());
-        intent.putExtra("content", item.getPlace());
+        intent.putExtra("id", item.id);
+        intent.putExtra("content", item.content);
         intent.putExtra("referer", CalendarActivity.TAG);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);

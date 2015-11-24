@@ -1,7 +1,7 @@
 package com.kobaken0029.aizuplanner.view;
 
-import com.kobaken0029.aizuplanner.model.Event;
+import com.kobaken0029.aizuplanner.view.adapter.dummy.DummyContent;
 
 public interface OnListFragmentInteractionListener {
-    void onListFragmentInteraction(Event item);
+    void onListFragmentInteraction(DummyContent.DummyItem item);
 }
