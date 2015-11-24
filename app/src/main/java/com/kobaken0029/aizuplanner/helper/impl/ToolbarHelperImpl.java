@@ -16,18 +16,13 @@ public class ToolbarHelperImpl implements ToolbarHelper {
     /**
      * ツールバーを設定する。
      */
-    public void init(final BaseActivity activity, Toolbar toolbar, int titleId, boolean isShowBackArrow) {
+    public void init(final BaseActivity activity, Toolbar toolbar, int titleId,
+                     Toolbar.OnMenuItemClickListener clickListener) {
         toolbar.setTitle(titleId);
         toolbar.setTitleTextColor(activity.getResources().getColor(android.R.color.white));
         if (isCalendarActivity(activity)) {
             toolbar.inflateMenu(R.menu.menu_calendar);
             toolbar.setNavigationIcon(R.drawable.ic_action_image_dehaze);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((CalendarActivity) activity).openDrawer();
-                }
-            });
         } else if (isEventActivity(activity)) {
             toolbar.inflateMenu(R.menu.menu_event);
             toolbar.setNavigationIcon(R.drawable.ic_action_navigation_arrow_back);
@@ -46,22 +41,9 @@ public class ToolbarHelperImpl implements ToolbarHelper {
                 }
             });
         }
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.search_events:
-                        SearchActivity.start(activity);
-                        return true;
-                    case R.id.set_today:
-                        ((CalendarActivity) activity).setToday();
-                        break;
-                    default:
-                        break;
-                }
-                return true;
-            }
-        });
+        if (clickListener != null) {
+            toolbar.setOnMenuItemClickListener(clickListener);
+        }
     }
 
     private boolean isCalendarActivity(Activity activity) {

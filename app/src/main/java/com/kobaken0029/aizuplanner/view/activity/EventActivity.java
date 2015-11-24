@@ -2,10 +2,10 @@ package com.kobaken0029.aizuplanner.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.kobaken0029.aizuplanner.R;
 import com.kobaken0029.aizuplanner.model.Event;
@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class EventActivity extends BaseActivity
-        implements EventDetailFragment.OnFragmentInteractionListener, EventListFragment.OnListFragmentInteractionListener {
+public class EventActivity extends BaseActivity {
     public static final String TAG = EventActivity.class.getSimpleName();
 
     private String referer;
@@ -26,15 +25,20 @@ public class EventActivity extends BaseActivity
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-    }
-
-    @Override
-    public void onListFragmentInteraction(Event item) {
-        replaceFragment(R.id.container,
-                EventDetailFragment.newInstance(item.getTitle(), item.getPlace()), EventDetailFragment.TAG);
-    }
+    private Toolbar.OnMenuItemClickListener mMenuItemClickListener =
+            new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.search_events:
+                            SearchActivity.start(EventActivity.this);
+                            return true;
+                        default:
+                            break;
+                    }
+                    return true;
+                }
+            };
 
     public static void start(Context context) {
         context.startActivity(new Intent(context, EventActivity.class));
@@ -44,12 +48,14 @@ public class EventActivity extends BaseActivity
         Intent intent = new Intent(context, EventActivity.class);
         intent.putStringArrayListExtra("titles", titles);
         intent.putStringArrayListExtra("places", places);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
     public static void start(Context context, Parcelable date) {
         Intent intent = new Intent(context, EventActivity.class);
         intent.putExtra("date", date);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
@@ -58,6 +64,7 @@ public class EventActivity extends BaseActivity
         intent.putExtra("id", item.getTitle());
         intent.putExtra("content", item.getPlace());
         intent.putExtra("referer", CalendarActivity.TAG);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
@@ -66,7 +73,7 @@ public class EventActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
         ButterKnife.bind(this);
-        mToolbarHelper.init(this, mToolbar, R.string.fragment_index_events, true);
+        mToolbarHelper.init(this, mToolbar, R.string.fragment_index_events, mMenuItemClickListener);
 
         if (getIntent().getStringExtra("id") != null) {
             String id = getIntent().getStringExtra("id");
@@ -81,7 +88,7 @@ public class EventActivity extends BaseActivity
         }
 
         if (savedInstanceState == null) {
-            addFragment(R.id.container, EventListFragment.newInstance(1), EventListFragment.TAG);
+            addFragment(R.id.container, EventListFragment.newInstance(), EventListFragment.TAG);
         }
     }
 
@@ -89,7 +96,7 @@ public class EventActivity extends BaseActivity
     public void onBackPressed() {
         if (getSupportFragmentManager().findFragmentByTag(EventDetailFragment.TAG) != null
                 && !referer.equals(CalendarActivity.TAG)) {
-            replaceFragment(R.id.container, EventListFragment.newInstance(1), EventListFragment.TAG);
+            replaceFragment(R.id.container, EventListFragment.newInstance(), EventListFragment.TAG);
             return;
         }
         super.onBackPressed();
