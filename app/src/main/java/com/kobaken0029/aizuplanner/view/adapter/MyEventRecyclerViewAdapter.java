@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kobaken0029.aizuplanner.R;
-import com.kobaken0029.aizuplanner.view.adapter.dummy.DummyContent.DummyItem;
+import com.kobaken0029.aizuplanner.model.Event;
 import com.kobaken0029.aizuplanner.view.fragment.EventListFragment.OnListFragmentInteractionListener;
 
 import java.util.List;
@@ -16,15 +16,15 @@ import butterknife.ButterKnife;
 
 public class MyEventRecyclerViewAdapter extends RecyclerView.Adapter<MyEventRecyclerViewAdapter.ViewHolder> {
 
-    private List<DummyItem> mValues;
+    private List<Event> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyEventRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyEventRecyclerViewAdapter(List<Event> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
 
-    public void setValues(List<DummyItem> mValues) {
+    public void setValues(List<Event> mValues) {
         this.mValues = mValues;
         notifyDataSetChanged();
     }
@@ -38,8 +38,8 @@ public class MyEventRecyclerViewAdapter extends RecyclerView.Adapter<MyEventRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText(mValues.get(position).getTitle());
+        holder.mContentView.setText(mValues.get(position).getPlace());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +60,7 @@ public class MyEventRecyclerViewAdapter extends RecyclerView.Adapter<MyEventRecy
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public Event mItem;
 
         public ViewHolder(View view) {
             super(view);

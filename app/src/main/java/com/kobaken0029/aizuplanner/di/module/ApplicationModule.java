@@ -4,7 +4,9 @@ import android.content.Context;
 
 import com.kobaken0029.aizuplanner.AizuPlannerApplication;
 import com.kobaken0029.aizuplanner.helper.ToolbarHelper;
+import com.kobaken0029.aizuplanner.helper.WebApiHelper;
 import com.kobaken0029.aizuplanner.helper.impl.ToolbarHelperImpl;
+import com.kobaken0029.aizuplanner.helper.impl.WebApiHelperImpl;
 
 import javax.inject.Singleton;
 
@@ -29,5 +31,11 @@ public class ApplicationModule {
     @Singleton
     ToolbarHelper provideToolbarHelper() {
         return new ToolbarHelperImpl();
+    }
+
+    @Provides
+    @Singleton
+    WebApiHelper provideWebApiHelper() {
+        return new WebApiHelperImpl();
     }
 }

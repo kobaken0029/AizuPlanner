@@ -16,13 +16,14 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.kobaken0029.aizuplanner.R;
+import com.kobaken0029.aizuplanner.model.Event;
 import com.kobaken0029.aizuplanner.view.adapter.MyEventRecyclerViewAdapter;
-import com.kobaken0029.aizuplanner.view.adapter.dummy.DummyContent;
 import com.kobaken0029.aizuplanner.view.fragment.EventListFragment;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -68,12 +69,7 @@ public class CalendarActivity extends BaseActivity {
                 public void onDateSelected(
                         @NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                     mCalendarView.setCurrentDate(date);
-                    List<DummyContent.DummyItem> items = DummyContent.ITEMS;
-                    if (items.size() > 0) {
-                        items.remove(0);
-                    } else {
-                        items.add(new DummyContent.DummyItem(String.valueOf(items.size()), "Item " + items.size(), ""));
-                    }
+                    List<Event> items = new ArrayList<>();
                     mRecyclerViewAdapter.setValues(items);
                 }
             };
@@ -81,7 +77,7 @@ public class CalendarActivity extends BaseActivity {
     private EventListFragment.OnListFragmentInteractionListener mListInteractionListener =
             new EventListFragment.OnListFragmentInteractionListener() {
                 @Override
-                public void onListFragmentInteraction(DummyContent.DummyItem item) {
+                public void onListFragmentInteraction(Event item) {
                     EventActivity.start(CalendarActivity.this, item);
                 }
             };
@@ -124,7 +120,7 @@ public class CalendarActivity extends BaseActivity {
         mCalendarView.setDateSelected(CalendarDay.today(), true);
         mCalendarView.setOnDateChangedListener(mDateSelectedListener);
 
-        mRecyclerViewAdapter = new MyEventRecyclerViewAdapter(DummyContent.ITEMS, mListInteractionListener);
+        mRecyclerViewAdapter = new MyEventRecyclerViewAdapter(new ArrayList<Event>(), mListInteractionListener);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
     }
