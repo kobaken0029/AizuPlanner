@@ -7,6 +7,9 @@ import com.kobaken0029.aizuplanner.helper.ToolbarHelper;
 import com.kobaken0029.aizuplanner.helper.WebApiHelper;
 import com.kobaken0029.aizuplanner.helper.impl.ToolbarHelperImpl;
 import com.kobaken0029.aizuplanner.helper.impl.WebApiHelperImpl;
+import com.kobaken0029.aizuplanner.view.controller.CalendarController;
+import com.kobaken0029.aizuplanner.view.controller.EventController;
+import com.kobaken0029.aizuplanner.view.controller.NavigationController;
 
 import javax.inject.Singleton;
 
@@ -37,5 +40,23 @@ public class ApplicationModule {
     @Singleton
     WebApiHelper provideWebApiHelper() {
         return new WebApiHelperImpl();
+    }
+
+    @Provides
+    @Singleton
+    NavigationController provideNavigationController() {
+        return new NavigationController();
+    }
+
+    @Provides
+    @Singleton
+    CalendarController provideCalendarController() {
+        return new CalendarController();
+    }
+
+    @Provides
+    @Singleton
+    EventController provideEventController() {
+        return new EventController();
     }
 }
